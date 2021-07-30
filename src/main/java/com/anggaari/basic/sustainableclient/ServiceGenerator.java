@@ -6,11 +6,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
-    private static final String BASE_URL = "https://api.github.com/";
+    public static String apiBaseUrl = "https://api.github.com/";
 
-    private static final Retrofit.Builder builder =
+    private static Retrofit.Builder builder =
             new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(apiBaseUrl)
                     .addConverterFactory(GsonConverterFactory.create());
 
     private static Retrofit retrofit = builder.build();
@@ -18,6 +18,19 @@ public class ServiceGenerator {
     private static final HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
 
     private static final OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+    // No need to instantiate this class.
+    private ServiceGenerator() {
+
+    }
+
+    public static void changeApiBaseUrl(String newApiBaseUrl) {
+        apiBaseUrl = newApiBaseUrl;
+
+        builder = new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl(apiBaseUrl);
+    }
 
     public static <S> S createService(Class<S> serviceClass) {
         if (!httpClient.interceptors().contains(logging)) {
