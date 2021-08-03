@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Sync {
     public static void main(String[] args) throws IOException {
-        ServiceGenerator.changeApiBaseUrl("https://jsonplaceholder.typicode.com/");
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
         Call<List<Todo>> call = taskService.getTodos();
         List<Todo> tasks = call.execute().body();

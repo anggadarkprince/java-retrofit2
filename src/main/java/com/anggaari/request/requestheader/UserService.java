@@ -2,6 +2,7 @@ package com.anggaari.request.requestheader;
 
 import com.anggaari.api.models.users.User;
 import com.anggaari.request.synchasync.Todo;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -28,4 +29,7 @@ public interface UserService {
 
     @GET("/todos/{todo_id}")
     Call<Todo> getTodo(@Path("todo_id") int todoId, @HeaderMap Map<String, String> headers);
+
+    @GET
+    Call<ResponseBody> profilePicture(@Url String url);
 }

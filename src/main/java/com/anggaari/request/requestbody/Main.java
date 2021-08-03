@@ -9,7 +9,6 @@ import retrofit2.Response;
 
 public class Main {
     public static void main(String[] args) {
-        ServiceGenerator.changeApiBaseUrl("https://jsonplaceholder.typicode.com/");
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
 
         Todo todo = new Todo(1, 1, "Buy a cup of coffee", false);

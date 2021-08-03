@@ -10,14 +10,15 @@ import java.util.List;
 
 public class Async {
     public static void main(String[] args) {
-        ServiceGenerator.changeApiBaseUrl("https://jsonplaceholder.typicode.com/");
         TaskService taskService = ServiceGenerator.createService(TaskService.class);
         Call<List<Todo>> call = taskService.getTodos();
 
         call.enqueue(new Callback<List<Todo>>() {
             @Override
-            public void onResponse(@NotNull Call<List<Todo>> call, @NotNull Response<List<Todo>> response) {// get raw response
-                okhttp3.Response raw = response.raw();
+            public void onResponse(@NotNull Call<List<Todo>> call, @NotNull Response<List<Todo>> response) {
+                // get raw response
+                // okhttp3.Response raw = response.raw();
+
                 if (response.isSuccessful()) {
                     // todos available
                     List<Todo> todos = response.body();
@@ -33,8 +34,14 @@ public class Async {
             public void onFailure(@NotNull Call<List<Todo>> call, @NotNull Throwable t) {
                 // something went completely south (like no internet connection)
                 System.out.println(t.getMessage());
+
+                if (call.isCanceled()) {
+                    System.out.println("Request cancelled");
+                }
             }
         });
 
+        // user can cancel the request
+        call.cancel();
     }
 }

@@ -1,10 +1,7 @@
 package com.anggaari.request.requestheader;
 
 import com.anggaari.api.models.users.User;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -23,8 +20,16 @@ public class Main {
             @Override
             public Response intercept(@NotNull Interceptor.Chain chain) throws IOException {
                 Request original = chain.request();
+                HttpUrl originalHttpUrl = original.url();
 
+                // add global query parameter
+                HttpUrl url = originalHttpUrl.newBuilder()
+                        .addQueryParameter("apikey", "this-is-api-key")
+                        .build();
+
+                // add global request header
                 Request request = original.newBuilder()
+                        .url(url)
                         .header("User-Agent", "My-Application")
                         .header("Accept", "application/json")
                         // add header (no override the existing one)
@@ -32,6 +37,7 @@ public class Main {
                         //.addHeader("Cache-Control", "no-cache, no-store") // same as bellow
                         .addHeader("Cache-Control", "no-cache")
                         .addHeader("Cache-Control", "no-store")
+
                         .method(original.method(), original.body())
                         .build();
 

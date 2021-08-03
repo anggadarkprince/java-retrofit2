@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        ServiceGenerator.changeApiBaseUrl("https://api.github.com/");
         GithubService client = ServiceGenerator.createService(GithubService.class);
         client.reposForUser("anggadarkprince").enqueue(new Callback<>() {
             @Override
