@@ -14,8 +14,12 @@ public interface FutureStudioClient {
     @GET("/user/info")
     Call<UserInfo> getUserInfo();
 
-    @PUT("/user/info")
-    Call<UserInfo> updateUserInfo(@Body UserInfo userInfo);
+    @POST("/users")
+    Call<UserInfo> createUser(@Body UserInfo userInfo);
+
+    //@PATCH("/users/{userId}")
+    @PUT("/users/{userId}")
+    Call<UserInfo> updateUser(@Path("userId") String userId, @Body UserInfo userInfo);
 
     @DELETE("/user")
     Call<Void> deleteUser();

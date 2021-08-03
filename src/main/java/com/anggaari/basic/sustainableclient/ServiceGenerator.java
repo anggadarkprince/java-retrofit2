@@ -5,6 +5,8 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.util.concurrent.TimeUnit;
+
 public class ServiceGenerator {
     public static String apiBaseUrl = "https://jsonplaceholder.typicode.com/";
 
@@ -34,7 +36,11 @@ public class ServiceGenerator {
 
     public static <S> S createService(Class<S> serviceClass) {
         if (!httpClient.interceptors().contains(logging)) {
-            httpClient.addInterceptor(logging);
+            httpClient
+                    .addInterceptor(logging)
+                    .connectTimeout(1, TimeUnit.MINUTES)
+                    .readTimeout(30, TimeUnit.SECONDS)
+                    .writeTimeout(15, TimeUnit.SECONDS);
             builder.client(httpClient.build());
             retrofit = builder.build();
         }
