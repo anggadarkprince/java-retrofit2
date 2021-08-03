@@ -1,4 +1,4 @@
-package com.anggaari.api.models.errors;
+package com.anggaari.basic.api.models.errors;
 
 public class ValidationErrorResponse<T> extends ErrorResponse{
     public final T errors;

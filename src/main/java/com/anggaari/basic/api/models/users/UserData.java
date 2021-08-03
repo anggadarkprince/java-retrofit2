@@ -1,4 +1,4 @@
-package com.anggaari.api.models.users;
+package com.anggaari.basic.api.models.users;
 
 import com.google.gson.annotations.SerializedName;
 

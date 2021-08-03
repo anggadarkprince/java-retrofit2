@@ -1,6 +1,6 @@
 package com.anggaari.basic.urlhandling;
 
-import com.anggaari.api.ApiService;
+import com.anggaari.basic.api.ApiService;
 import com.anggaari.basic.sustainableclient.ServiceGenerator;
 
 public class Main {

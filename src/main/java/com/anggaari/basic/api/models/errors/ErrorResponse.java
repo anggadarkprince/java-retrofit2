@@ -1,4 +1,4 @@
-package com.anggaari.api.models.errors;
+package com.anggaari.basic.api.models.errors;
 
 public class ErrorResponse {
     public final String status;

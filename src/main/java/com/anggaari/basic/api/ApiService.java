@@ -1,6 +1,6 @@
-package com.anggaari.api;
+package com.anggaari.basic.api;
 
-import com.anggaari.api.models.users.UserResponse;
+import com.anggaari.basic.api.models.users.UserResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;

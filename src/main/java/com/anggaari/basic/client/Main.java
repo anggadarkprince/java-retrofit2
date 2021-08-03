@@ -1,7 +1,7 @@
 package com.anggaari.basic.client;
 
-import com.anggaari.github.GithubService;
-import com.anggaari.github.models.GitHubRepo;
+import com.anggaari.basic.github.GithubService;
+import com.anggaari.basic.github.models.GitHubRepo;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;

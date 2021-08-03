@@ -1,19 +1,29 @@
 package com.anggaari.basic.sustainableclient;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.jaxb.JaxbConverterFactory;
 
 import java.util.concurrent.TimeUnit;
 
 public class ServiceGenerator {
     public static String apiBaseUrl = "https://jsonplaceholder.typicode.com/";
 
+    private static final Gson gson = new GsonBuilder()
+            .enableComplexMapKeySerialization()
+            .serializeNulls()
+            .setPrettyPrinting()
+            .create();
+
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(apiBaseUrl)
-                    .addConverterFactory(GsonConverterFactory.create());
+                    .addConverterFactory(JaxbConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson));
 
     private static Retrofit retrofit = builder.build();
 

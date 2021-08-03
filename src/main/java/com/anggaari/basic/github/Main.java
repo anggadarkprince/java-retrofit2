@@ -1,6 +1,6 @@
-package com.anggaari.github;
+package com.anggaari.basic.github;
 
-import com.anggaari.github.models.Contributor;
+import com.anggaari.basic.github.models.Contributor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

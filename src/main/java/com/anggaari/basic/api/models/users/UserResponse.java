@@ -1,4 +1,4 @@
-package com.anggaari.api.models.users;
+package com.anggaari.basic.api.models.users;
 
 public class UserResponse {
     public final String status;

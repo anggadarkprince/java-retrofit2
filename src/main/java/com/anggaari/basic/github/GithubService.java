@@ -1,7 +1,7 @@
-package com.anggaari.github;
+package com.anggaari.basic.github;
 
-import com.anggaari.github.models.Contributor;
-import com.anggaari.github.models.GitHubRepo;
+import com.anggaari.basic.github.models.Contributor;
+import com.anggaari.basic.github.models.GitHubRepo;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

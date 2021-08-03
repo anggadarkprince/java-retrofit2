@@ -1,7 +1,7 @@
 package com.anggaari.basic.sustainableclient;
 
-import com.anggaari.github.GithubService;
-import com.anggaari.github.models.GitHubRepo;
+import com.anggaari.basic.github.GithubService;
+import com.anggaari.basic.github.models.GitHubRepo;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

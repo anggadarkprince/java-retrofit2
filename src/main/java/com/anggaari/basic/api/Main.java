@@ -1,9 +1,9 @@
-package com.anggaari.api;
+package com.anggaari.basic.api;
 
-import com.anggaari.api.models.errors.ErrorResponse;
-import com.anggaari.api.models.errors.ValidationErrorResponse;
-import com.anggaari.api.models.users.UserResponse;
-import com.anggaari.api.models.users.UserValidation;
+import com.anggaari.basic.api.models.errors.ErrorResponse;
+import com.anggaari.basic.api.models.errors.ValidationErrorResponse;
+import com.anggaari.basic.api.models.users.UserResponse;
+import com.anggaari.basic.api.models.users.UserValidation;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import okhttp3.Interceptor;
@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {

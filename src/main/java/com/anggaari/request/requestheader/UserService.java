@@ -1,6 +1,6 @@
 package com.anggaari.request.requestheader;
 
-import com.anggaari.api.models.users.User;
+import com.anggaari.basic.api.models.users.User;
 import com.anggaari.request.synchasync.Todo;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

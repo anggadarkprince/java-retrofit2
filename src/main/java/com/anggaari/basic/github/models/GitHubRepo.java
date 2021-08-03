@@ -1,4 +1,4 @@
-package com.anggaari.github.models;
+package com.anggaari.basic.github.models;
 
 public class GitHubRepo {
     private int id;
