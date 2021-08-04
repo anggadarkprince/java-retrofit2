@@ -36,6 +36,10 @@ public class ServiceGenerator {
 
     }
 
+    public static Retrofit retrofit() {
+        return retrofit;
+    }
+
     public static void changeApiBaseUrl(String newApiBaseUrl) {
         apiBaseUrl = newApiBaseUrl;
 
