@@ -65,3 +65,5 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 file.png
+file*
+uploads/**/*
