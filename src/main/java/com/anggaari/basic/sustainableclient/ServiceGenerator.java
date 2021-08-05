@@ -1,7 +1,9 @@
 package com.anggaari.basic.sustainableclient;
 
+import com.anggaari.authentication.AuthenticationInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -80,6 +82,28 @@ public class ServiceGenerator {
 
         if (!httpClient.interceptors().contains(logging) /*&& BuildConfig.DEBUG*/) {
             httpClient.addInterceptor(logging);
+            builder.client(httpClient.build());
+            retrofit = builder.build();
+        }
+
+        return retrofit.create(serviceClass);
+    }
+
+    public static <S> S createService(Class<S> serviceClass, String username, String password) {
+        String authToken = Credentials.basic(username, password);
+        return createService(serviceClass, authToken);
+    }
+
+    public static <S> S createService(Class<S> serviceClass, final String authToken) {
+        AuthenticationInterceptor interceptor = new AuthenticationInterceptor(authToken);
+
+        if (!httpClient.interceptors().contains(logging)) {
+            httpClient.addInterceptor(logging);
+        }
+
+        if (!httpClient.interceptors().contains(interceptor)) {
+            httpClient.addInterceptor(interceptor);
+
             builder.client(httpClient.build());
             retrofit = builder.build();
         }
