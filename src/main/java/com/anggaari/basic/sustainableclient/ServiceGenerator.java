@@ -3,6 +3,7 @@ package com.anggaari.basic.sustainableclient;
 import com.anggaari.authentication.AuthenticationInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import okhttp3.Authenticator;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -67,6 +68,9 @@ public class ServiceGenerator {
 
     public static void addInterceptor(Interceptor interceptor) {
         httpClient.addInterceptor(interceptor);
+    }
+    public static void setAuthenticator(Authenticator authenticator) {
+        httpClient.authenticator(authenticator);
     }
 
     public static <S> S createService(Class<S> serviceClass) {
