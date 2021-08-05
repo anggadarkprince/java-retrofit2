@@ -2,6 +2,7 @@ package com.anggaari.request.reuserequest;
 
 import com.anggaari.basic.sustainableclient.ServiceGenerator;
 import okhttp3.ResponseBody;
+import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -14,10 +15,10 @@ public class Main {
 
         Callback<ResponseBody> downloadCallback = new Callback<>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(@NotNull Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     System.out.println("server contacted and has file");
-                    boolean result = writeResponseBodyToDisk(response.body());
+                    boolean result = writeResponseBodyToDisk(response.body(), "file.png");
                     System.out.println("download result: " + result);
                 } else {
                     System.out.println("server contact failed");
@@ -25,7 +26,7 @@ public class Main {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(@NotNull Call<ResponseBody> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
         };
@@ -38,11 +39,14 @@ public class Main {
         newCall.enqueue(downloadCallback);
     }
 
-    public static boolean writeResponseBodyToDisk(ResponseBody body) {
+    public static boolean writeResponseBodyToDisk(ResponseBody body, String fileName) {
         try {
             String path = System.getProperty("user.dir");
-            System.out.println(path);
-            File file = new File(System.getProperty("user.dir") + File.separator + "file.png");
+            System.out.println("Stored in " + path);
+            if (fileName == null) {
+                fileName = "file";
+            }
+            File file = new File(System.getProperty("user.dir") + File.separator + fileName);
 
             InputStream inputStream = null;
             OutputStream outputStream = null;

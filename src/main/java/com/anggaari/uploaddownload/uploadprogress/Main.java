@@ -24,13 +24,13 @@ public class Main {
         String type = URLConnection.guessContentTypeFromName(file.getName());
         ProgressRequestBody requestFile = new ProgressRequestBody(file, type, new ProgressRequestBody.UploadCallbacks() {
             @Override
-            public void onProgressUpdate(double percentage, long uploaded, long fileLength) {
-                System.out.println("Upload progress " + percentage + "% of " + uploaded + "/" + fileLength);
+            public void onStart(double percentage, long uploaded, long fileLength) {
+                System.out.println("Upload is started");
             }
 
             @Override
-            public void onError(Exception e, double percentage) {
-                System.out.println("Upload failed in the middle " + percentage + "% - " + e.getMessage());
+            public void onProgressUpdate(double percentage, long uploaded, long fileLength) {
+                System.out.println("Upload progress " + percentage + "% of " + uploaded + "/" + fileLength);
             }
 
             @Override

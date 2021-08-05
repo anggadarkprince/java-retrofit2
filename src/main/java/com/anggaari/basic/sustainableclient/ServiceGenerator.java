@@ -2,6 +2,7 @@ package com.anggaari.basic.sustainableclient;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
@@ -42,6 +43,18 @@ public class ServiceGenerator {
         return retrofit;
     }
 
+    public static Retrofit.Builder builder() {
+        return builder;
+    }
+
+    public static OkHttpClient.Builder httpClient() {
+        return httpClient;
+    }
+
+    public static HttpLoggingInterceptor logging() {
+        return logging;
+    }
+
     public static void changeApiBaseUrl(String newApiBaseUrl) {
         apiBaseUrl = newApiBaseUrl;
 
@@ -50,16 +63,18 @@ public class ServiceGenerator {
                 .baseUrl(apiBaseUrl);
     }
 
+    public static void addInterceptor(Interceptor interceptor) {
+        httpClient.addInterceptor(interceptor);
+    }
+
     public static <S> S createService(Class<S> serviceClass) {
         httpClient.connectTimeout(1, TimeUnit.MINUTES);
         httpClient.readTimeout(30, TimeUnit.SECONDS);
         httpClient.writeTimeout(15, TimeUnit.SECONDS);
 
         if (isDevelopment) {
-            // development build
             logging.setLevel(Level.BODY);
         } else {
-            // production build
             logging.setLevel(Level.BASIC);
         }
 

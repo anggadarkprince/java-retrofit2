@@ -3,6 +3,7 @@ package com.anggaari.uploaddownload.uploadprogress;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okio.BufferedSink;
+import okio.BufferedSource;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +31,7 @@ public class ProgressRequestBody extends RequestBody {
     }
 
     @Override
-    public void writeTo(@NotNull BufferedSink bufferedSink) {
+    public void writeTo(@NotNull BufferedSink bufferedSink) throws IOException {
         long fileLength = file.length();
         long uploaded = 0;
         double percentage = 0;
@@ -38,6 +39,8 @@ public class ProgressRequestBody extends RequestBody {
         byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
 
         try (FileInputStream inputStream = new FileInputStream(file)) {
+            listener.onStart(percentage, uploaded, fileLength);
+
             int read;
             while ((read = inputStream.read(buffer)) != -1) {
                 // update progress on UI thread (android)
@@ -48,6 +51,7 @@ public class ProgressRequestBody extends RequestBody {
 
                 double progress = (double) uploaded / fileLength * 100;
                 percentage = (double) Math.round(progress * 100) / 100;
+
                 listener.onProgressUpdate(percentage, uploaded, fileLength);
 
                 if (percentage >= 100 && !isFinished) {
@@ -55,12 +59,15 @@ public class ProgressRequestBody extends RequestBody {
                     listener.onFinish(percentage, uploaded, fileLength);
                 }
             }
-        } catch (IOException e) {
-            listener.onError(e, percentage);
         }
     }
 
     public interface UploadCallbacks {
+        /**
+         * Start to upload.
+         */
+        void onStart(double percentage, long uploaded, long fileLength);
+
         /**
          * Update progress in percent.
          *
@@ -69,14 +76,6 @@ public class ProgressRequestBody extends RequestBody {
          * @param fileLength total of length of byte
          */
         void onProgressUpdate(double percentage, long uploaded, long fileLength);
-
-        /**
-         * When error occurred in progress.
-         *
-         * @param e exception
-         * @param percentage total percentage when error occurred
-         */
-        void onError(Exception e, double percentage);
 
         /**
          * When file is uploaded and reach 100%, it does mean the request is success.
